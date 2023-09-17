@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import css from './ContactList.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { filterState } from '../redux/filterSlice';
-import { contactState } from '../redux/contactSlice';
-import { deleteContact } from '../redux/contactSlice';
+import { filterState } from '../redux/filter/selector';
+import { contactState } from '../redux/contact/selector';
+import { deleteContact } from '../redux/contact/contactSlice';
 
 const ContactList = () => {
   const dispatch = useDispatch();

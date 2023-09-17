@@ -1,17 +1,16 @@
-// import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-// import PropTypes from 'prop-types';
+
 import css from './Form.module.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { contactState } from '../redux/contactSlice';
-import { addContact } from '../redux/contactSlice';
+import { contactState } from '../redux/contact/selector';
+import { addContact } from '../redux/contact/contactSlice';
 
-const Form = ({ onSubmitProp }) => {
+const Form = () => {
   const contacts = useSelector(contactState);
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
+  const [contactName, setName] = useState('');
   const [number, setNumber] = useState('');
 
   const nameInputId = nanoid();
@@ -19,13 +18,14 @@ const Form = ({ onSubmitProp }) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (contacts.some(({ names }) => names === name)) {
-      alert(`${name} is already in your contacts`);
+    if (contacts.some(({ name }) => name === contactName)) {
+      alert(`${contactName} is already in your contacts`);
+
       return;
     }
     dispatch(
       addContact({
-        name: name,
+        name: contactName,
         number,
         id: nanoid(),
       })
@@ -54,7 +54,7 @@ const Form = ({ onSubmitProp }) => {
           className={css.input}
           type="text"
           name="name"
-          value={name}
+          value={contactName}
           onChange={handleChange}
           id={nameInputId}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
